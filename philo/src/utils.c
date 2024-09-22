@@ -80,7 +80,7 @@ int	uwait(t_philo *philo, unsigned long time)
 		pthread_mutex_unlock(&(*philo).table->print);
 		if ((ft_get_time() - t_start) >= time)
 			return (0);
-		usleep(100);
+		usleep(10000);
 	}
 	pthread_mutex_lock(&(*philo).table->print);
 	(*philo).table->dead = true;

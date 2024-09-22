@@ -24,3 +24,4 @@ Issues:
 -Time of dead to big.
 -Everyone eats at the same time.
 -They don't sleep in order.
+-Somthing is wrong in the forks, because when n_philosophers are odd, the last one it's supoused to wait, but it's eating with a "magical" fork that it's not supoused to be there...

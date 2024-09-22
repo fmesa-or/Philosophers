@@ -30,6 +30,11 @@ int	ft_eat(t_philo *philo)
 			return (-1);
 		if (pthread_mutex_unlock(&(*philo).l_fork) != 0)
 			return (-1);
+		if (pthread_mutex_lock(&(*philo).table->print) != 0)
+			return (-1);
+		printf(PI"[%lu] %lu is sleeping\n"RES, (ft_get_time() - philo->table->start_time), (*philo).id);
+		if (pthread_mutex_unlock(&(*philo).table->print) != 0)
+			return (-1);
 	}
 	else
 		return (-1);
@@ -40,11 +45,6 @@ int	ft_rest(t_philo *philo)
 {
 	if ((*philo).meals < (*philo).table->meals || (*philo).table->meals == -1)
 	{
-		if (pthread_mutex_lock(&(*philo).table->print) != 0)
-			return (-1);
-		printf(PI"[%lu] %lu is sleeping\n"RES, (ft_get_time() - philo->table->start_time), (*philo).id);
-		if (pthread_mutex_unlock(&(*philo).table->print) != 0)
-			return (-1);
 		if (uwait(&(*philo), (*philo).table->t_sleep) == -1)
 			return (-1);
 		if (pthread_mutex_lock(&(*philo).table->print) != 0)
