@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oceanscore <oceanscore@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:37:42 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/19 20:18:50 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:41:17 by oceanscore       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_isdigit(char *str)
+int	ft_isundigit(char *str)
 {
 	if (!str)
 		return (-1);
@@ -36,7 +36,7 @@ int	check_parse(int ac, char **av)
 	{
 		while (++i < ac)
 		{
-			if ((ft_isdigit(av[i])) == -1)
+			if ((ft_isundigit(av[i])) == -1)
 				return(-1);
 		}
 	}
@@ -58,14 +58,22 @@ unsigned long	ft_get_time()
 	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
+/*
+*time	= amount of time necesary to complette the task.*
+*Waits the amount of time to complette the task while checking if someone died.*
+*Remember:	The spawn of life time is mesured with the last time the philosopher eated.*
+*/
 int	uwait(t_philo *philo, unsigned long time)
 {
 	unsigned long	t_start;
 
 	t_start = ft_get_time();
+	if (ft_graveyard(&philo))
+		return (-1);
 	while ((ft_get_time() - (*philo).t_meals) < (*philo).table->t_die)
 	{
-		
+		if (ft_graveyard(&philo))
+			return (-1);
 		pthread_mutex_lock(&(*philo).table->print);
 		if ((*philo).table->dead == true)
 			return (-1);
@@ -74,9 +82,9 @@ int	uwait(t_philo *philo, unsigned long time)
 			return (0);
 		usleep(100);
 	}
-	(*philo).table->dead = true;
 	pthread_mutex_lock(&(*philo).table->print);
-	printf(PR"[%d] %d died\n"RES, ft_get_time(), (*philo).id);
+	(*philo).table->dead = true;
+	printf(RD"[%lu] %lu died\n"RES, ft_get_time(), (*philo).id);
 	pthread_mutex_unlock(&(*philo).table->print);
 	return (-1);
 }
@@ -88,23 +96,13 @@ int	uwait(t_philo *philo, unsigned long time)
 *4th:	*/
 int	eating(t_philo *philo)
 {
-	int	t_start_eating;
-
-	if ((*philo).table->dead == true)
+	if (ft_graveyard(&philo))
 		return (-1);
 	pthread_mutex_lock(&(*philo).table->print);
-	printf(GR"[%d] %d is eating\n"RES, ft_get_time(), (*philo).id);
+	printf(GR"[%lu] %lu is eating\n"RES, (ft_get_time() - philo->table->start_time), (*philo).id);
+	(*philo).meals++;
 	pthread_mutex_unlock(&(*philo).table->print);
-	if (uwait(&philo, (*philo).table->t_eat) == -1)
+	if (uwait(&(*philo), (*philo).table->t_eat) == -1)
 		return (-1);
-	return (0);
-}
-
-int	ft_printer(t_philo *philo, char FLAG)
-{
-	if (FLAG == 'E')
-	{
-		eating(&philo);
-	}
 	return (0);
 }

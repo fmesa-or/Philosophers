@@ -17,4 +17,10 @@ Also use:
 lldb
 
 For correction:
-valgrind --leak-check=full --show-leak-kinds=all ./philo ...
+valgrind --leak-check=full --show-leak-kinds=all valgrind --track-origins=yes --thread-stack-size=1048576 --smc-check=all ./philo ...
+
+Issues:
+-Everyone dies at the same time.
+-Time of dead to big.
+-Everyone eats at the same time.
+-They don't sleep in order.
