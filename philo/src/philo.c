@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oceanscore <oceanscore@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:33:41 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/19 19:11:14 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:10:39 by oceanscore       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ int	main(int ac, char *av[])
 		printf(RD"Error:\tWrong input.\n"PR"Ex:\t./philo " \
 		"(philosophers) (time_to_die) (eat_time) (sleep_time) " \
 		"[target_meals]\n"RES);
-		return(-1);
+		return (-1);
 	}
-//	table = (t_table *)malloc(sizeof(t_table *));
 	if (create_table(av, &table) == -1)
 		return (-1);
-	if (create_philo(av, &table, &philo) == -1)
+	if (create_philo(&table, &philo) == -1)
 		return (-1);
+	if (table->n_philos == 1)
+		return (ft_diner_4_1(&philo));
 	if (create_threads(&table, &philo) == -1)
 		return (-1);
-	join_threads();
+	if (join_threads(&philo) == -1)
+		return (-1);
 	return (0);
 }

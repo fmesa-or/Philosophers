@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oceanscore <oceanscore@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:21:12 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/19 20:34:15 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:35:15 by oceanscore       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdbool.h>
+# include <unistd.h>
 
 /* COLORS */
 # define RD			"\033[1;91m"
-# define GR			"\033[0;92m"
 # define PR			"\033[4;95m"
-# define YL			"\033[0;93m"
+# define CI			"\033[0;96m"
+# define GR			"\033[0;92m"
+# define PI			"\033[0;94m"
+# define FF			"\033[0;97m"
 # define RES		"\033[0m"
 
 	/* STRUCTURE */
@@ -41,7 +44,7 @@ typedef struct s_table
 	unsigned long	t_die;
 	unsigned long	t_eat;
 	unsigned long	t_sleep;
-	unsigned long	meals;
+	long		meals;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	unsigned long	start_time;
@@ -65,7 +68,7 @@ typedef struct s_philo
 	t_table			*table;
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	r_fork;
-	unsigned long	meals;
+	long	meals;
 	unsigned long	t_meals;
 
 }	t_philo;
@@ -74,20 +77,25 @@ typedef struct s_philo
 /* MAIN */
 
 /* UTILS */
-int	ft_isdigit(char *str);
-int	check_parse(int ac, char **av);
+int				ft_isundigit(char *str);
+int				check_parse(int ac, char **av);
 unsigned long	ft_get_time();
-int	eating(t_philo *philo);
+int				eating(t_philo *philo);
+unsigned long	ft_atoul(const char *str);
+int	uwait(t_philo *philo, unsigned long time);
+int	ft_diner_4_1(t_philo **philo);
+int	ft_graveyard(t_philo **philo);
+//int				ft_printer(t_philo *philo, char *FLAG);
 
 
 
 /* MAÎTRE */
-int	create_table(char **av, t_table *table);
-int	create_philo(char **av, t_table *table, t_philo *philo);
+int	create_table(char **av, t_table **table);
+int	create_philo(t_table **table, t_philo **philo);
 
 /* THREADS */
-int	create_threads(t_table *table, t_philo *philo);
-int	join_threads(t_philo *philo);
+int	create_threads(t_table **table, t_philo **philo);
+int	join_threads(t_philo **philo);
 
 /* ROUTINE */
 int ft_routine(void	*param);
