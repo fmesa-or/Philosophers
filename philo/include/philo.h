@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oceanscore <oceanscore@student.42.fr>      +#+  +:+       +#+        */
+/*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:21:12 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/22 18:35:15 by oceanscore       ###   ########.fr       */
+/*   Updated: 2024/09/23 13:18:05 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ unsigned long	ft_get_time();
 int				eating(t_philo *philo);
 unsigned long	ft_atoul(const char *str);
 int	uwait(t_philo *philo, unsigned long time);
-int	ft_diner_4_1(t_philo **philo);
+int	ft_diner_4_1(t_philo **philo, t_table **table);
 int	ft_graveyard(t_philo **philo);
 //int				ft_printer(t_philo *philo, char *FLAG);
 
@@ -100,5 +100,7 @@ int	join_threads(t_philo **philo);
 /* ROUTINE */
 int ft_routine(void	*param);
 
+/* FREE */
+void	free_array(t_philo **array);
 
 #endif

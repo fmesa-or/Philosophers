@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maitre.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oceanscore <oceanscore@student.42.fr>      +#+  +:+       +#+        */
+/*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:08:43 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/22 17:43:49 by oceanscore       ###   ########.fr       */
+/*   Updated: 2024/09/23 14:19:55 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ int	create_philo(t_table **table, t_philo **philo)
 {
 	unsigned long	i;
 
-	(*philo) = malloc(sizeof(t_philo *) * (*table)->n_philos);
+	*philo = malloc(sizeof(t_philo *) * (*table)->n_philos);
 	if (!philo)
 		return (-1);
 	i = 0;
+	printf("%lu\n", ((*table)->n_philos));
 	while (i < ((*table)->n_philos))
 	{
-		(*philo)[i].id = (i + 1);
+		philo[i]->id = (i + 1);
+		printf("%lu\n", philo[i]->id);
 		(*philo)[i].table = *table;
 		(*philo)[i].r_fork = (*table)->forks[i];
 		(*philo)[i].l_fork = (*table)->forks[(i + 1) % (*table)->n_philos];
