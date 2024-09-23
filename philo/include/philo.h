@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:21:12 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/23 13:18:05 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:30:30 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_table
 	unsigned long	t_die;
 	unsigned long	t_eat;
 	unsigned long	t_sleep;
-	long		meals;
+	long			meals;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	unsigned long	start_time;
@@ -66,9 +66,9 @@ typedef struct s_philo
 	unsigned long	id;
 	pthread_t		thread;
 	t_table			*table;
-	pthread_mutex_t	l_fork;
-	pthread_mutex_t	r_fork;
-	long	meals;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork;
+	long			meals;
 	unsigned long	t_meals;
 
 }	t_philo;
@@ -82,23 +82,23 @@ int				check_parse(int ac, char **av);
 unsigned long	ft_get_time();
 int				eating(t_philo *philo);
 unsigned long	ft_atoul(const char *str);
-int	uwait(t_philo *philo, unsigned long time);
-int	ft_diner_4_1(t_philo **philo, t_table **table);
-int	ft_graveyard(t_philo **philo);
-//int				ft_printer(t_philo *philo, char *FLAG);
+int				uwait(t_philo *philo, unsigned long time);
+int				ft_diner_4_1(t_philo *philo, t_table *table);
+int				ft_graveyard(t_philo *philo);
+//int			ft_printer(t_philo *philo, char *str);
 
 
 
 /* MAÎTRE */
-int	create_table(char **av, t_table **table);
-int	create_philo(t_table **table, t_philo **philo);
+int	create_table(char **av, t_table *table);
+int	create_philo(t_table *table, t_philo *philo);
 
 /* THREADS */
-int	create_threads(t_table **table, t_philo **philo);
-int	join_threads(t_philo **philo);
+int	create_threads(t_table *table, t_philo *philo);
+int	join_threads(t_philo *philo);
 
 /* ROUTINE */
-int ft_routine(void	*param);
+void	*ft_routine(void	*param);
 
 /* FREE */
 void	free_array(t_philo **array);

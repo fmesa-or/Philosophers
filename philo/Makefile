@@ -6,7 +6,7 @@
 #    By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 15:59:19 by fmesa-or          #+#    #+#              #
-#    Updated: 2024/09/23 11:41:55 by fmesa-or         ###   ########.fr        #
+#    Updated: 2024/09/23 18:48:11 by fmesa-or         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ NAME		:= philo
 CC			:= cc
 
 #Flags
-CFLAGS		:= -Wextra -Werror -Wall -g -pthread
+CFLAGS		:= -Wextra -Werror -Wall -g -pthread 
+#-fsanitize=address
 
 #Clean
 CLEAN		:= rm -Rf

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oceanscore <oceanscore@student.42.fr>      +#+  +:+       +#+        */
+/*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:37:42 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/22 18:41:17 by oceanscore       ###   ########.fr       */
+/*   Updated: 2024/09/23 20:34:20 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int	uwait(t_philo *philo, unsigned long time)
 	unsigned long	t_start;
 
 	t_start = ft_get_time();
-	if (ft_graveyard(&philo))
+	if (ft_graveyard(philo))
 		return (-1);
 	while ((ft_get_time() - (*philo).t_meals) < (*philo).table->t_die)
 	{
-		if (ft_graveyard(&philo))
+		if (ft_graveyard(philo))
 			return (-1);
 		pthread_mutex_lock(&(*philo).table->print);
 		if ((*philo).table->dead == true)
@@ -84,8 +84,10 @@ int	uwait(t_philo *philo, unsigned long time)
 	}
 	pthread_mutex_lock(&(*philo).table->print);
 	(*philo).table->dead = true;
-	printf(RD"[%lu] %lu died\n"RES, ft_get_time(), (*philo).id);
+	printf(RD"[%lu] %lu died\n"RES, (ft_get_time() - philo->table->start_time), philo->id);
 	pthread_mutex_unlock(&(*philo).table->print);
+//	pthread_mutex_unlock(philo->r_fork);
+//	pthread_mutex_unlock(philo->l_fork);
 	return (-1);
 }
 
@@ -96,7 +98,7 @@ int	uwait(t_philo *philo, unsigned long time)
 *4th:	*/
 int	eating(t_philo *philo)
 {
-	if (ft_graveyard(&philo))
+	if (ft_graveyard(philo))
 		return (-1);
 	pthread_mutex_lock(&(*philo).table->print);
 	printf(GR"[%lu] %lu is eating\n"RES, (ft_get_time() - philo->table->start_time), (*philo).id);
