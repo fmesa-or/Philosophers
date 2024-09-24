@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:21:12 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/23 20:30:30 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:37:35 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ typedef struct s_table
 	unsigned long	t_die;
 	unsigned long	t_eat;
 	unsigned long	t_sleep;
-	long			meals;
+	unsigned long	meals;
+	unsigned long	sated;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	reaper;
 	unsigned long	start_time;
 	bool			dead;
 
@@ -68,7 +70,7 @@ typedef struct s_philo
 	t_table			*table;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	long			meals;
+	unsigned long	meals;
 	unsigned long	t_meals;
 
 }	t_philo;
@@ -85,8 +87,10 @@ unsigned long	ft_atoul(const char *str);
 int				uwait(t_philo *philo, unsigned long time);
 int				ft_diner_4_1(t_philo *philo, t_table *table);
 int				ft_graveyard(t_philo *philo);
-//int			ft_printer(t_philo *philo, char *str);
-
+int				printer(t_philo *philo, char flag);
+int				ft_hand(t_philo *philo, char flag);
+int				ft_n_meals(t_table *table);
+int			printer_dead(t_philo *philo);
 
 
 /* MAÎTRE */

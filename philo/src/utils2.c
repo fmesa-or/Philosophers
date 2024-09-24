@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 12:48:20 by oceanscore        #+#    #+#             */
-/*   Updated: 2024/09/23 20:41:42 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:23:53 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,12 @@ int	ft_diner_4_1(t_philo *philo, t_table *table)
 
 int	ft_graveyard(t_philo *philo)
 {
-	if (ft_get_time() - philo->t_meals >= philo->table->t_die)
-		philo->table->dead = true;
-	pthread_mutex_lock(&philo->table->print);
+	pthread_mutex_lock(&philo->table->reaper);
 	if (philo->table->dead == true)
 	{
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(&philo->table->reaper);
 		return (-1);
 	}
-	pthread_mutex_unlock(&philo->table->print);
+	pthread_mutex_unlock(&philo->table->reaper);
 	return (0);
 }

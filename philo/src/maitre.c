@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:08:43 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/23 19:29:38 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:22:53 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	create_table(char **av, t_table *table)
 	table->t_die = (ft_atoul(av[2]));
 	table->t_eat = (ft_atoul(av[3]));
 	table->t_sleep = (ft_atoul(av[4]));
+	table->sated = 0;
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->n_philos);
 	if (!(table->forks))
 		return (-1);

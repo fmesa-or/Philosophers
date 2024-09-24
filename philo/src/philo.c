@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:33:41 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/23 20:24:25 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:34:02 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,14 @@ int	main(int ac, char *av[])
 	t_philo	*philo;
 
 	if (check_parse(ac, av) == -1)
-	{
-		printf(RD"Error:\tWrong input.\n"PR"Ex:\t./philo " \
-		"(philosophers) (time_to_die) (eat_time) (sleep_time) " \
-		"[target_meals]\n"RES);
 		return (-1);
-	}
 	table = malloc(sizeof(t_table));
 	if (!table)
 		return (-1);
 	if (create_table(av, table) == -1)
 		return (-1);
-	if (table->meals == 0)
-	{
-		printf("Nice try...\n"RD"Error: Target meals must be bigger than 0.\n"RES);
+	if (ft_n_meals(table) == -1)
 		return (-1);
-	}
 	philo = malloc(sizeof(t_philo) * table->n_philos);
 	if (!philo)
 		return (-1);
