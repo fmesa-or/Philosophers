@@ -6,17 +6,18 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:08:43 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/24 20:22:53 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:49:09 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /**************************************************************************
-*1st:	Saves space for the table, and asigns all the data.               *
-*2nd:	Saves space for the forks and asigns all of them.                 *
+*1st:	Assigns all the data.                                             *
+*2nd:	Saves space for the forks and initializes all of them.            *
 *3rd:	Starts the mutex for the print mutex.                             *
 *4th:	If there is a number of meals to eat, it will store the data also.*
+*5th:	Saves the start time of the program.                              *
 **************************************************************************/
 int	create_table(char **av, t_table *table)
 {
@@ -46,10 +47,10 @@ int	create_table(char **av, t_table *table)
 	return (0);
 }
 
-/***************************************************************
-*1st:	Saves space for all the philosophers (inside an array).*
-*2nd:	Asigns all the data for every philosopher.             *
-***************************************************************/
+/*********************************************************
+*Asigns all the data for every philosopher.              *
+*		The last time each one eaten it's the start time.*
+*********************************************************/
 int	create_philo(t_table *table, t_philo *philo)
 {
 	unsigned long	i;

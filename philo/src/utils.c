@@ -6,14 +6,11 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:37:42 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/24 20:36:55 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:37:16 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-
-
 
 /**********************************************
 *Returns the exact time in miliseconds.       *
@@ -29,63 +26,59 @@ unsigned long	ft_get_time()
 	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-/*
-*time	= amount of time necesary to complette the task.*
-*Waits the amount of time to complette the task while checking if someone died.*
-*Remember:	The spawn of life time is mesured with the last time the philosopher eated.*
-*/
-int	uwait(t_philo *philo, unsigned long time)
+/*******************************************************
+*Changes the argument input to an unsigned long number.*
+*******************************************************/
+unsigned long	ft_atoul(const char *str)
 {
-	unsigned long	t_start;
+	long			i;
+	unsigned long	n;
 
-	t_start = ft_get_time();
-	if (ft_graveyard(philo) == -1)
-		return (-1);
-	while ((ft_get_time() - (*philo).t_meals) < (*philo).table->t_die)
+	i = 0;
+	n = 0;
+	while (str[i] >= 9 && str[i] <= 13)
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (ft_graveyard(philo) == -1)
-			return (-1);
-		if ((ft_get_time() - t_start) >= time)
-			return (0);
-		usleep(10000);
+		n += str[i] - 48;
+		if (str[i + 1] >= '0' && str[i + 1] <= '9')
+			n *= 10;
+		i++;
 	}
+	return (n);
+}
+
+/****************************************************************************************
+*This special function only works for just one philosopher, so we don't waste resources.*
+****************************************************************************************/
+int	ft_diner_4_1(t_philo *philo, t_table *table)
+{
+	printf(CI"[%lu] %lu has taken a fork\n"RES, (ft_get_time() - philo->table->start_time), philo->id);
+	usleep(philo->table->t_die * 1000);
+	printf(RD"[%lu] %lu died\n"RES, (ft_get_time() - philo->table->start_time), philo->id);
+	free(table);
+	free(philo);
+	return (-1);
+}
+
+/*************************************************************
+*Checks if someone is dead and if the philosopher has to die.*
+*************************************************************/
+int	ft_graveyard(t_philo *philo)
+{
 	pthread_mutex_lock(&philo->table->reaper);
+	pthread_mutex_lock(&philo->table->print);
+	if((ft_get_time() - (*philo).t_meals) > (*philo).table->t_die && philo->table->dead == false)
+	{
+		philo->table->dead = true;
+		printf(RD"[%lu] %lu died\n"RES, (ft_get_time() - philo->table->start_time), philo->id);
+	}
+	pthread_mutex_unlock(&philo->table->print);
 	if (philo->table->dead == true)
 	{
 		pthread_mutex_unlock(&philo->table->reaper);
 		return (-1);
 	}
-	philo->table->dead = true;
-	if (printer_dead(philo) == -1)
-		return (-1);
 	pthread_mutex_unlock(&philo->table->reaper);
-	return (-1);
-}
-
-/*
-*1st:	Checks if someone is dead.
-*2nd:	Saves the time when function is called.
-*3rd:	Prints the message.
-*4th:	*/
-int	eating(t_philo *philo)
-{
-	if (ft_graveyard(philo) == -1)
-	{
-		return (-1);
-	}
-	if (printer(philo, 'E') == -1)
-		return (-1);
-	pthread_mutex_lock(&philo->table->reaper);
-	if (philo->meals == philo->table->meals)
-		philo->table->sated++;
-	if (philo->table->sated == philo->table->n_philos)
-	{
-		philo->table->dead = true;
-		pthread_mutex_unlock(&philo->table->reaper);
-		return (-1);
-	}
-	pthread_mutex_unlock(&philo->table->reaper);
-	if (uwait(&(*philo), (*philo).table->t_eat) == -1)
-		return (-1);
 	return (0);
 }

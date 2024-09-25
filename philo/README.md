@@ -10,15 +10,11 @@ Flags:
 	--show-leaks-kinds=all					->??????
 	--supressions=supressions.supp			->??????
 	--trace-children=yes					->traces the children process and shows
-
+	--tool=helgrind							->Data races (for threads)
 
 Also use:
 
 lldb
 
 For correction:
-valgrind --leak-check=full --show-leak-kinds=all valgrind --track-origins=yes --thread-stack-size=1048576 --smc-check=all ./philo ...
-
-Issues:
--Time of dead to big.
--When someone dies sometimes other philosopher takes a fork(so rude...)
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=helgrind ./philo ...

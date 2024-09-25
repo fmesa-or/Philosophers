@@ -6,12 +6,18 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 18:30:43 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/24 19:59:59 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:45:00 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/***********************************************************************
+*This are the hands of the philosophers.                               *
+*1st:	Lock the fork.                                                 *
+*2nd:	Print the sentence for eating.                                 *
+*			If someone is dead or anything fails(-1) unlocks the mutex.*
+***********************************************************************/
 int	ft_hand(t_philo *philo, char flag)
 {
 	if (flag == 'r')

@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:21:12 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/24 20:37:35 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:43:09 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 # include <unistd.h>
 
 /* COLORS */
-# define RD			"\033[1;91m"
-# define PR			"\033[4;95m"
-# define CI			"\033[0;96m"
-# define GR			"\033[0;92m"
-# define PI			"\033[0;94m"
-# define FF			"\033[0;97m"
-# define RES		"\033[0m"
+# define RD		"\033[1;91m"
+# define PR		"\033[4;95m"
+# define CI		"\033[0;96m"
+# define GR		"\033[0;92m"
+# define PI		"\033[0;94m"
+# define FF		"\033[0;97m"
+# define RES	"\033[0m"
 
 	/* STRUCTURE */
 
@@ -75,36 +75,37 @@ typedef struct s_philo
 
 }	t_philo;
 
-
-/* MAIN */
-
-/* UTILS */
-int				ft_isundigit(char *str);
+/* CHECKERS */
 int				check_parse(int ac, char **av);
-unsigned long	ft_get_time();
-int				eating(t_philo *philo);
-unsigned long	ft_atoul(const char *str);
-int				uwait(t_philo *philo, unsigned long time);
-int				ft_diner_4_1(t_philo *philo, t_table *table);
-int				ft_graveyard(t_philo *philo);
-int				printer(t_philo *philo, char flag);
-int				ft_hand(t_philo *philo, char flag);
+int				ft_isundigit(char *str);
 int				ft_n_meals(t_table *table);
-int			printer_dead(t_philo *philo);
 
+/* HANDS */
+int				ft_hand(t_philo *philo, char flag);
 
 /* MAÎTRE */
-int	create_table(char **av, t_table *table);
-int	create_philo(t_table *table, t_philo *philo);
+int				create_philo(t_table *table, t_philo *philo);
+int				create_table(char **av, t_table *table);
 
-/* THREADS */
-int	create_threads(t_table *table, t_philo *philo);
-int	join_threads(t_philo *philo);
+/* PRINTER */
+int				printer(t_philo *philo, char flag);
+int				printer_dead(t_philo *philo);
 
 /* ROUTINE */
-void	*ft_routine(void	*param);
+int				eating(t_philo *philo);
+int				ft_eat(t_philo *philo);
+int				ft_rest(t_philo *philo);
+void			*ft_routine(void	*param);
+int				uwait(t_philo *philo, unsigned long time);
 
-/* FREE */
-void	free_array(t_philo **array);
+/* THREADS */
+int				create_threads(t_table *table, t_philo *philo);
+int				join_threads(t_philo *philo);
+
+/* UTILS */
+unsigned long	ft_atoul(const char *str);
+int				ft_diner_4_1(t_philo *philo, t_table *table);
+unsigned long	ft_get_time();
+int				ft_graveyard(t_philo *philo);
 
 #endif

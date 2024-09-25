@@ -6,12 +6,15 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:28:29 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/24 20:37:30 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:39:52 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**************************************************************
+*If the sring send is a positive number returns 0, in font -1.*
+**************************************************************/
 int	ft_isundigit(char *str)
 {
 	if (!str)
@@ -25,6 +28,9 @@ int	ft_isundigit(char *str)
 	return (0);
 }
 
+/*******************************************
+*Checks if the input arguments are correct.*
+*******************************************/
 int	check_parse(int ac, char **av)
 {
 	int	i;
@@ -51,6 +57,9 @@ int	check_parse(int ac, char **av)
 	return(0);
 }
 
+/*************************************************************************
+*Small protection for smart people trying to get down this proyect easily*
+*************************************************************************/
 int	ft_n_meals(t_table *table)
 {
 	if (table->meals == 0)
