@@ -6,26 +6,28 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:12:11 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/25 14:30:47 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:26:44 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-/***************************************************************************************
-*time	= Amount of time necesary to complette the task.                               *
-*--------------------------------------------------------------------------------------*
-*1st:	Saves time starting the task.                                                  *
-*2nd:	While the philosopher is alive checks if someone died, checks if it's          *
-*			done with the task and waits to start the loop again.                      *
-*			Only get's out of the loop if he dies or someone died.                     *
-*3rd:	If the philosopher dies making the task:                                       *
-*		3.1:	Locks the reaper so it can check if someone died already.(Protection). *
-*		3.2:	Changes the dead bool from false to true.                              *
-*		3.3:	Prints the dead message, and unlock the mutex.                         *
-*--------------------------------------------------------------------------------------*
-*Remember:	The spawn of life time is mesured with the last time the philosopher eated.*
-***************************************************************************************/
+/*****************************************************************************
+*time	= Amount of time necesary to complette the task.                     *
+*----------------------------------------------------------------------------*
+*1st:	Saves time starting the task.                                        *
+*2nd:	While the philosopher is alive checks if someone died, checks if it's*
+*			done with the task and waits to start the loop again.            *
+*			Only get's out of the loop if he dies or someone died.           *
+*3rd:	If the philosopher dies making the task:                             *
+*		3.1:	Locks the reaper so it can check if someone died already.    *
+*			(Protection).                                                    *
+*		3.2:	Changes the dead bool from false to true.                    *
+*		3.3:	Prints the dead message, and unlock the mutex.               *
+*----------------------------------------------------------------------------*
+*Remember:	The spawn of life time is mesured with the last time the         *
+*	philosopher eated.                                                       *
+*****************************************************************************/
 int	uwait(t_philo *philo, unsigned long time)
 {
 	unsigned long	t_start;
@@ -94,9 +96,7 @@ int	ft_eat(t_philo *philo)
 {
 	if (ft_graveyard(philo) == -1)
 		return (-1);
-	if (ft_hand(philo, 'r') == -1)
-		return (-1);
-	if (ft_hand(philo, 'l') == -1)
+	if (ft_last_one(philo) == -1)
 		return (-1);
 	philo->t_meals = ft_get_time();
 	if (eating(philo) == -1)

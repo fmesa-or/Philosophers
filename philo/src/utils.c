@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:37:42 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/25 14:37:16 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:18:17 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@
 *tv_sec stores second at the moment           *
 *tv_usec stores the microseconds at the moment*
 **********************************************/
-unsigned long	ft_get_time()
+unsigned long	ft_get_time(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-
-	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 /*******************************************************
@@ -48,14 +47,18 @@ unsigned long	ft_atoul(const char *str)
 	return (n);
 }
 
-/****************************************************************************************
-*This special function only works for just one philosopher, so we don't waste resources.*
-****************************************************************************************/
+/***********************************************************
+*This special function only works for just one philosopher,*
+* so we don't waste resources.                             *
+***********************************************************/
 int	ft_diner_4_1(t_philo *philo, t_table *table)
 {
-	printf(CI"[%lu] %lu has taken a fork\n"RES, (ft_get_time() - philo->table->start_time), philo->id);
+	printf(CI"[%lu] %lu has taken a fork\n"RES,
+		(ft_get_time() - philo->table->start_time), philo->id);
 	usleep(philo->table->t_die * 1000);
-	printf(RD"[%lu] %lu died\n"RES, (ft_get_time() - philo->table->start_time), philo->id);
+	printf(RD"[%lu] %lu died\n"RES,
+		(ft_get_time() - philo->table->start_time), philo->id);
+	free(table->forks);
 	free(table);
 	free(philo);
 	return (-1);
@@ -68,10 +71,12 @@ int	ft_graveyard(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->reaper);
 	pthread_mutex_lock(&philo->table->print);
-	if((ft_get_time() - (*philo).t_meals) > (*philo).table->t_die && philo->table->dead == false)
+	if ((ft_get_time() - (*philo).t_meals) > (*philo).table->t_die
+		&& philo->table->dead == false)
 	{
 		philo->table->dead = true;
-		printf(RD"[%lu] %lu died\n"RES, (ft_get_time() - philo->table->start_time), philo->id);
+		printf(RD"[%lu] %lu died\n"RES,
+			(ft_get_time() - philo->table->start_time), philo->id);
 	}
 	pthread_mutex_unlock(&philo->table->print);
 	if (philo->table->dead == true)

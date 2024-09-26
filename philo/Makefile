@@ -6,7 +6,7 @@
 #    By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 15:59:19 by fmesa-or          #+#    #+#              #
-#    Updated: 2024/09/23 18:48:11 by fmesa-or         ###   ########.fr        #
+#    Updated: 2024/09/26 19:34:25 by fmesa-or         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,9 @@ CLEAN		:= rm -Rf
 
 #Sources
 SRCS_DIR	:= src
-#SRCS		:= src/ src/ src/ src/
-SRCS		:= $(shell find $(SRCS_DIR) -iname "*.c")
+SRCS		:= src/checkers.c src/hands.c src/maitre.c src/philo.c src/printer.c \
+					src/routine.c src/threads.c src/utils.c
+#SRCS		:= $(shell find $(SRCS_DIR) -iname "*.c")
 
 #Objects
 OBJS_DIR	:= obj

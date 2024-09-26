@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:28:29 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/25 13:39:52 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:08:59 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_parse(int ac, char **av)
 	if (ac < 5 || ac > 6)
 	{
 		printf(RD"ERROR: Wrong amount of arguments.\n");
-		return(-1);
+		return (-1);
 	}
 	else
 	{
@@ -52,21 +52,23 @@ int	check_parse(int ac, char **av)
 					"[target_meals]\n"RES);
 				return (-1);
 			}
+			if (ft_value_0(ft_atoul(av[i])) == -1)
+				return (-1);
 		}
 	}
-	return(0);
+	return (0);
 }
 
 /*************************************************************************
 *Small protection for smart people trying to get down this proyect easily*
 *************************************************************************/
-int	ft_n_meals(t_table *table)
+int	ft_value_0(unsigned long value)
 {
-	if (table->meals == 0)
+	if (value == 0)
 	{
-		printf("Nice try...\n"RD"Error: Target meals must be bigger than 0.\n"RES);
+		printf("Nice try...\n");
+		printf(RD"Error: Values must be bigger than 0.\n"RES);
 		return (-1);
 	}
 	return (0);
 }
-

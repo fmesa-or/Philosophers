@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:08:43 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/25 13:49:09 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:46:59 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	create_table(char **av, t_table *table)
 		i++;
 	}
 	pthread_mutex_init(&table->print, NULL);
+	pthread_mutex_init(&table->reaper, NULL);
 	if (av[5])
 		table->meals = ft_atoul(av[5]);
 	else
@@ -51,7 +52,7 @@ int	create_table(char **av, t_table *table)
 *Asigns all the data for every philosopher.              *
 *		The last time each one eaten it's the start time.*
 *********************************************************/
-int	create_philo(t_table *table, t_philo *philo)
+void	create_philo(t_table *table, t_philo *philo)
 {
 	unsigned long	i;
 
@@ -66,5 +67,4 @@ int	create_philo(t_table *table, t_philo *philo)
 		philo[i].t_meals = table->start_time;
 		i++;
 	}
-	return (0);
 }

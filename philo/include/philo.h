@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:21:12 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/25 14:43:09 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:27:12 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,15 @@ typedef struct s_philo
 /* CHECKERS */
 int				check_parse(int ac, char **av);
 int				ft_isundigit(char *str);
-int				ft_n_meals(t_table *table);
+int				ft_value_0(unsigned long value);
 
 /* HANDS */
-int				ft_hand(t_philo *philo, char flag);
+int				ft_r_hand(t_philo *philo);
+int				ft_l_hand(t_philo *philo);
+int				ft_last_one(t_philo *philo);
 
 /* MAÎTRE */
-int				create_philo(t_table *table, t_philo *philo);
+void			create_philo(t_table *table, t_philo *philo);
 int				create_table(char **av, t_table *table);
 
 /* PRINTER */
@@ -105,7 +107,9 @@ int				join_threads(t_philo *philo);
 /* UTILS */
 unsigned long	ft_atoul(const char *str);
 int				ft_diner_4_1(t_philo *philo, t_table *table);
-unsigned long	ft_get_time();
+unsigned long	ft_get_time(void);
 int				ft_graveyard(t_philo *philo);
+
+void			ft_free(t_philo *philo);
 
 #endif
