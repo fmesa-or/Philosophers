@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 18:30:43 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/26 21:26:54 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:50:49 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	ft_r_hand(t_philo *philo)
 		if (philo->id == philo->table->n_philos)
 		{
 			pthread_mutex_unlock(philo->r_fork);
-			pthread_mutex_unlock(philo->l_fork);
 			return (-1);
 		}
 		else
 		{
+			pthread_mutex_unlock(philo->l_fork);
 			pthread_mutex_unlock(philo->r_fork);
 			return (-1);
 		}
@@ -48,11 +48,11 @@ int	ft_l_hand(t_philo *philo)
 		if (philo->id == philo->table->n_philos)
 		{
 			pthread_mutex_unlock(philo->l_fork);
+			pthread_mutex_unlock(philo->r_fork);
 			return (-1);
 		}
 		else
 		{
-			pthread_mutex_unlock(philo->r_fork);
 			pthread_mutex_unlock(philo->l_fork);
 			return (-1);
 		}
@@ -64,16 +64,16 @@ int	ft_last_one(t_philo *philo)
 {
 	if (philo->id == philo->table->n_philos)
 	{
-		if (ft_l_hand(philo) == -1)
-			return (-1);
 		if (ft_r_hand(philo) == -1)
+			return (-1);
+		if (ft_l_hand(philo) == -1)
 			return (-1);
 	}
 	else
 	{
-		if (ft_r_hand(philo) == -1)
-			return (-1);
 		if (ft_l_hand(philo) == -1)
+			return (-1);
+		if (ft_r_hand(philo) == -1)
 			return (-1);
 	}
 	return (0);

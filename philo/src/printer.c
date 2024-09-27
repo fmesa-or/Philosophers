@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:46:17 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/26 19:43:56 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:16:46 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,26 @@
 *********************************************************/
 int	printer(t_philo *philo, char flag)
 {
-	if (ft_graveyard(philo) == -1)
-		return (-1);
 	if (pthread_mutex_lock(&philo->table->print) != 0)
 		return (-1);
-	if (flag == 'F')
-		printf(CI"[%lu] %lu has taken a fork\n"RES,
-			(ft_get_time() - philo->table->start_time), (*philo).id);
-	else if (flag == 'E')
+	if (philo->table->dead == false)
 	{
-		printf(GR"[%lu] %lu is eating\n"RES,
-			(ft_get_time() - philo->table->start_time), (*philo).id);
-		(*philo).meals++;
+		if (flag == 'F')
+			printf(CI"[%lu] %lu has taken a fork\n"RES,
+				(ft_get_time() - philo->table->start_time), (*philo).id);
+		else if (flag == 'E')
+		{
+			printf(GR"[%lu] %lu is eating\n"RES,
+				(ft_get_time() - philo->table->start_time), (*philo).id);
+			(*philo).meals++;
+		}
+		else if (flag == 'S')
+			printf(PI"[%lu] %lu is sleeping\n"RES,
+				(ft_get_time() - philo->table->start_time), (*philo).id);
+		else if (flag == 'T')
+			printf(FF"[%lu] %lu is thinking\n"RES,
+				(ft_get_time() - philo->table->start_time), (*philo).id);
 	}
-	else if (flag == 'S')
-		printf(PI"[%lu] %lu is sleeping\n"RES,
-			(ft_get_time() - philo->table->start_time), (*philo).id);
-	else if (flag == 'T')
-		printf(FF"[%lu] %lu is thinking\n"RES,
-			(ft_get_time() - philo->table->start_time), (*philo).id);
 	if (pthread_mutex_unlock(&philo->table->print) != 0)
 		return (-1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:12:11 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/26 21:26:44 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:18:04 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,13 @@ int	uwait(t_philo *philo, unsigned long time)
 	unsigned long	t_start;
 
 	t_start = ft_get_time();
-	if (ft_graveyard(philo) == -1)
-		return (-1);
 	while ((ft_get_time() - (*philo).t_meals) < (*philo).table->t_die)
 	{
 		if (ft_graveyard(philo) == -1)
 			return (-1);
 		if ((ft_get_time() - t_start) >= time)
 			return (0);
-		usleep(10000);
+		usleep(100);
 	}
 	pthread_mutex_lock(&philo->table->reaper);
 	if (philo->table->dead == true)
@@ -65,8 +63,6 @@ int	uwait(t_philo *philo, unsigned long time)
 *****************************************************************************/
 int	eating(t_philo *philo)
 {
-	if (ft_graveyard(philo) == -1)
-		return (-1);
 	if (printer(philo, 'E') == -1)
 		return (-1);
 	pthread_mutex_lock(&philo->table->reaper);
@@ -138,11 +134,6 @@ int	ft_rest(t_philo *philo)
 		if (uwait(philo, (philo->table->t_eat - philo->table->t_sleep)) == -1)
 			return (-1);
 	}
-	else if (philo->table->t_eat < philo->table->t_sleep)
-	{
-		if (uwait(philo, (philo->table->t_sleep - philo->table->t_eat)) == -1)
-			return (-1);
-	}
 	return (0);
 }
 
@@ -163,8 +154,6 @@ void	*ft_routine(void	*param)
 		usleep(100);
 	while (1)
 	{
-		if (ft_graveyard(philo) == -1)
-			break ;
 		if (ft_eat(&(*philo)) == -1)
 			break ;
 		if (ft_rest(&(*philo)) == -1)

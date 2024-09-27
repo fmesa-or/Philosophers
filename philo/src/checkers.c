@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:28:29 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/26 20:08:59 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:09:07 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_parse(int ac, char **av)
 					"[target_meals]\n"RES);
 				return (-1);
 			}
-			if (ft_value_0(ft_atoul(av[i])) == -1)
+			if (ft_value_zero(ft_atoul(av[i])) == -1)
 				return (-1);
 		}
 	}
@@ -62,7 +62,7 @@ int	check_parse(int ac, char **av)
 /*************************************************************************
 *Small protection for smart people trying to get down this proyect easily*
 *************************************************************************/
-int	ft_value_0(unsigned long value)
+int	ft_value_zero(unsigned long value)
 {
 	if (value == 0)
 	{

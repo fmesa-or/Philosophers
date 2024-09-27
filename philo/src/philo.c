@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:33:41 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/26 20:47:56 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:07:36 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main2(t_table *table, t_philo *philo)
 {
 	create_philo(table, philo);
 	if (table->n_philos == 1)
-		return (ft_diner_4_1(philo, table));
+		return (ft_diner_for_one(philo, table));
 	if (create_threads(table, philo) == -1)
 	{
 		ft_free(philo);

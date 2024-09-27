@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:37:42 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/26 20:18:17 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:07:30 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ unsigned long	ft_atoul(const char *str)
 *This special function only works for just one philosopher,*
 * so we don't waste resources.                             *
 ***********************************************************/
-int	ft_diner_4_1(t_philo *philo, t_table *table)
+int	ft_diner_for_one(t_philo *philo, t_table *table)
 {
 	printf(CI"[%lu] %lu has taken a fork\n"RES,
 		(ft_get_time() - philo->table->start_time), philo->id);
