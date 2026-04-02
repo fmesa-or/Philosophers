@@ -6,7 +6,7 @@
 /*   By: fmesa-or <fmesa-or@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:28:29 by fmesa-or          #+#    #+#             */
-/*   Updated: 2024/09/27 12:09:07 by fmesa-or         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:10:50 by fmesa-or         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_parse(int ac, char **av)
 	i = 0;
 	if (ac < 5 || ac > 6)
 	{
-		printf(RD"ERROR: Wrong amount of arguments.\n");
+		printf(RD"ERROR: Wrong amount of arguments.\n./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]\n");
 		return (-1);
 	}
 	else
